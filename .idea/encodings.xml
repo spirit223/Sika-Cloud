@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Sika-API/Sika-API-Feign/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-API/Sika-API-Feign/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-API/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-API/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/SIka-QuestionBank/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/SIka-QuestionBank/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/Sika-Data-Share/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/Sika-Data-Share/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/Sika-Eaxm/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/Sika-Eaxm/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/Sika-Exam/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/Sika-Exam/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/Sika-Practice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/Sika-Practice/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Sika-Modules/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

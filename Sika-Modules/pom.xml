@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>Sika</artifactId>
+        <groupId>cc.sika</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>Sika-Modules</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>Sika-Practice</module>
+        <module>SIka-QuestionBank</module>
+        <module>Sika-Data-Share</module>
+        <module>Sika-Exam</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>cc.sika</groupId>
+            <artifactId>Sika-API</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
+</project>
