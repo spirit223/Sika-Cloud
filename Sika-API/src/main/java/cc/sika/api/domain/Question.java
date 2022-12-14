@@ -42,21 +42,21 @@ public class Question {
      */
     private String questionDescription;
     /**
-     * 题目答案
+     * 题目答案id
      */
-    private String questionAnswer;
+    private Integer answerId;
 
     /**
      * 题目分类
      */
     private String questionTopic;
 
-    public Question(char questionType, String questionContent, byte[] questionImage, String questionDescription, String questionAnswer, String questionTopic) {
+    public Question(char questionType, String questionContent, byte[] questionImage, String questionDescription, Integer answerId, String questionTopic) {
         this.questionType = questionType;
         this.questionContent = questionContent;
         this.questionImage = questionImage;
         this.questionDescription = questionDescription;
-        this.questionAnswer = questionAnswer;
+        this.answerId = answerId;
         this.questionTopic = questionTopic;
     }
 }

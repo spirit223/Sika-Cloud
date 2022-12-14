@@ -1,0 +1,11 @@
+server:
+  port: 8111
+swagger:
+  enabled: true
+  base-path: /
+  title: "Sika接口文档"
+  version: 1.0
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

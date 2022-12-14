@@ -14,13 +14,6 @@ spring:
     url: jdbc:mysql://localhost:3306/sika?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     username: root
     password: wjc52292
-  # 文件上传
-  servlet:
-    multipart:
-      # 单个文件大小
-      max-file-size: 10MB
-      # 设置总上传的文件大小
-      max-request-size: 20MB
   # redis 配置
   redis:
     # 地址
@@ -43,6 +36,10 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # SpringBoot 2.6.x 版本于Swagger不兼容问题
+
 
 # MyBatis配置
 mybatis:
@@ -53,9 +50,15 @@ mybatis:
   # 加载全局的配置文件
   configLocation: classpath:mybatis/mybatis-config.xml
 
-# PageHelper分页插件
-pagehelper:
-  helperDialect: mysql
-  supportMethodsArguments: true
-  params: count=countSql
+swagger:
+  enabled: true
+  base-package: cc.sika.web
+  title: "Sika-Question接口文档"
+  version: 1.0
+  base-path: /
+  description: "问题操作相关接口"
+  contact:
+    email: 2235569493@qq.com
+    name: 小吴来哩!
+    url: http://ironcentury.cc
 

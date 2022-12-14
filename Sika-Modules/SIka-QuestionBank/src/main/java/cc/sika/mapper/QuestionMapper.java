@@ -23,6 +23,8 @@ public interface QuestionMapper {
 
     int updateQuestion(Question question);
 
+    int updateQueAnswer(@Param("questionId") int questionId, @Param("answerId") int answerId);
+
     int deleteQuestion(@Param("questionId") int questionId);
 
 }

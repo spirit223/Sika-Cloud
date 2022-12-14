@@ -3,6 +3,7 @@ package cc.sika.web;
 import cc.sika.api.common.HttpStatus;
 import cc.sika.api.domain.Question;
 import cc.sika.api.domain.Topic;
+import cc.sika.api.vo.QuestionVO;
 import cc.sika.service.QuestionService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,21 +22,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/question")
 public class QuestionController {
-    @Resource
+    @Resource(name = "questionService")
     private QuestionService service;
 
     @GetMapping("/get/{id}")
-    public Question getQueById(@PathVariable("id") int questionId) {
+    public QuestionVO getQueById(@PathVariable("id") int questionId) {
         return service.getQuesById(questionId);
     }
 
     @GetMapping("/topic/{topic}")
-    public List<Question> getQueByTopic(@PathVariable("topic") Topic topic) {
+    public List<QuestionVO> getQueByTopic(@PathVariable("topic") Topic topic) {
         return service.getQuesByTopic(topic);
     }
 
     @GetMapping("/get/all")
-    public List<Question> getAllQues() {
+    public List<QuestionVO> getAllQues() {
         return service.getAllQues();
     }
 

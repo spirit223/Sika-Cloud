@@ -1,0 +1,112 @@
+{
+  "groups": [
+    {
+      "name": "swagger",
+      "type": "cc.sika.common.swagger.config.SwaggerProperties",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties"
+    },
+    {
+      "name": "swagger.contact",
+      "type": "cc.sika.common.swagger.config.SwaggerProperties$Contact",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "swagger.base-package",
+      "type": "java.lang.String",
+      "description": "swagger会解析的包路径",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "swagger.base-path",
+      "type": "java.util.List<java.lang.String>",
+      "description": "swagger会解析的url规则",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties"
+    },
+    {
+      "name": "swagger.contact.email",
+      "type": "java.lang.String",
+      "description": "联系人email",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties$Contact",
+      "defaultValue": ""
+    },
+    {
+      "name": "swagger.contact.name",
+      "type": "java.lang.String",
+      "description": "联系人",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties$Contact",
+      "defaultValue": ""
+    },
+    {
+      "name": "swagger.contact.url",
+      "type": "java.lang.String",
+      "description": "联系人url",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties$Contact",
+      "defaultValue": ""
+    },
+    {
+      "name": "swagger.description",
+      "type": "java.lang.String",
+      "description": "描述",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "swagger.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否开启swagger",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties"
+    },
+    {
+      "name": "swagger.exclude-path",
+      "type": "java.util.List<java.lang.String>",
+      "description": "在basePath基础上需要排除的url规则",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties"
+    },
+    {
+      "name": "swagger.host",
+      "type": "java.lang.String",
+      "description": "host信息",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "swagger.license",
+      "type": "java.lang.String",
+      "description": "许可证",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "swagger.license-url",
+      "type": "java.lang.String",
+      "description": "许可证URL",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "swagger.terms-of-service-url",
+      "type": "java.lang.String",
+      "description": "服务条款URL",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "swagger.title",
+      "type": "java.lang.String",
+      "description": "标题",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "swagger.version",
+      "type": "java.lang.String",
+      "description": "版本",
+      "sourceType": "cc.sika.common.swagger.config.SwaggerProperties",
+      "defaultValue": ""
+    }
+  ],
+  "hints": []
+}

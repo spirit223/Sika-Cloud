@@ -25,6 +25,11 @@
             <artifactId>Sika-API</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>cc.sika</groupId>
+            <artifactId>Sika-Common-Swagger</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
 </project>

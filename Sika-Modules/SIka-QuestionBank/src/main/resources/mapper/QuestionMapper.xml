@@ -5,9 +5,9 @@
 <mapper namespace="cc.sika.mapper.QuestionMapper">
     <!-- DML -->
     <insert id="addQuestion">
-        INSERT INTO question (question_type, question_content, question_image, question_description, question_answer,
+        INSERT INTO question (question_type, question_content, question_image, question_description, answer_id,
                               question_topic)
-        VALUES (#{questionType}, #{questionContent}, #{questionImage}, #{questionDescription}, #{questionAnswer},
+        VALUES (#{questionType}, #{questionContent}, #{questionImage}, #{questionDescription}, #{answerId},
                 #{questionTopic})
     </insert>
 
@@ -17,8 +17,13 @@
             question_content     = #{questionContent},
             question_image       = #{questionImage},
             question_description = #{questionDescription},
-            question_answer      = #{questionAnswer},
+            answer_id            = #{questionAnswer},
             question_topic       = #{questionTopic}
+        WHERE question_id = #{questionId}
+    </update>
+    <update id="updateQueAnswer">
+        UPDATE question
+        SET answer_id = #{answerId}
         WHERE question_id = #{questionId}
     </update>
 

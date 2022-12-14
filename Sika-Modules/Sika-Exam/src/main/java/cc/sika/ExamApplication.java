@@ -1,16 +1,15 @@
 package cc.sika;
 
-import cc.sika.common.swagger.annotation.EnableCustomSwagger2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author 吴畅
+ * @创建时间 ${DATE} - ${TIME}
  */
 @SpringBootApplication
-@EnableCustomSwagger2
-public class QuestionBankApplication {
+public class ExamApplication {
     public static void main(String[] args) {
-        SpringApplication.run(QuestionBankApplication.class, args);
+        SpringApplication.run(ExamApplication.class, args);
     }
 }
