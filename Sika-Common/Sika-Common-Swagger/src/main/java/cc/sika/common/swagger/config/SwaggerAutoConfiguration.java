@@ -26,7 +26,6 @@ import java.util.function.Predicate;
 
 /**
  * SwaggerUI自动配置类,
- *
  * @author 吴畅
  * @创建时间 2022/12/14 - 13:47
  */
@@ -108,7 +107,6 @@ public class SwaggerAutoConfiguration implements ApplicationContextAware {
     }
 
     private ApplicationContext applicationContext;
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
