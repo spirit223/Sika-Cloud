@@ -1,4 +1,4 @@
-package cc.sika.common;
+package cc.sika.common.swagger;
 
 import cc.sika.common.swagger.annotation.EnableCustomSwagger2;
 import org.springframework.boot.SpringApplication;
@@ -10,14 +10,9 @@ import org.springframework.context.ConfigurableApplicationContext;
  * @创建时间 2022/12/14 - 13:06
  */
 @SpringBootApplication
-@EnableCustomSwagger2
+@EnableCustomSwagger2(basePackage = "cc.sika.common.swagger.web")
 public class SikaCommonSwaggerApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SikaCommonSwaggerApplication.class);
-        for (String beanDefinitionName : context.getBeanDefinitionNames()) {
-            if (beanDefinitionName.contains("swaggerProperties")) {
-                System.out.println(context.getBean("swaggerProperties"));
-            }
-        }
     }
 }

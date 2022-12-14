@@ -52,7 +52,6 @@ mybatis:
 
 swagger:
   enabled: true
-  base-package: cc.sika.web
   title: "Sika-Question接口文档"
   version: 1.0
   base-path: /
