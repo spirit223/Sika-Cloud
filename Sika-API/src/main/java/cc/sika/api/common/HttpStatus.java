@@ -1,6 +1,8 @@
 package cc.sika.api.common;
 
+
 /**
+ * 定义 HTTP 操作的状态信息枚举, 通过枚举值的 getMessage() 和 getCode() 来获取相应信息
  * @author 吴畅
  * @创建时间 2022/12/7 - 13:22
  */
@@ -12,7 +14,7 @@ public enum HttpStatus {
     MOVED_PERM("资源已被移除", 301),
     SEE_OTHER("重定向", 303),
     NOT_MODIFIED("资源没有被修改", 304),
-    BAD_REQUEST("参数列表错误（缺少，格式不匹配）", 400),
+    BAD_REQUEST("参数列表错误（缺少，范围超出, 格式不匹配）", 400),
     UNAUTHORIZED("未授权", 401),
     FORBIDDEN("访问受限，授权过期", 403),
     NOT_FOUND("资源，服务未找到", 404),
@@ -22,7 +24,27 @@ public enum HttpStatus {
     ERROR("系统内部错误", 500),
     NOT_IMPLEMENTED("接口未实现", 501);
 
-    HttpStatus(String s, int i) {
+    private final String message;
+    private final int code;
 
+    HttpStatus(String message, int code) {
+        this.message = message;
+        this.code = code;
+    }
+
+    public int getCode() {
+        return this.code;
+    }
+
+    public String getMessage() {
+        return this.message;
+    }
+
+    @Override
+    public String toString() {
+        return "{"+
+                "message"+":"+this.message+
+                ",code"+":"+this.code+
+        "}";
     }
 }
