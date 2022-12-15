@@ -3,7 +3,9 @@ package cc.sika.service;
 import cc.sika.api.common.HttpStatus;
 import cc.sika.api.domain.Question;
 import cc.sika.api.domain.Topic;
-import cc.sika.api.vo.QuestionVO;
+import cc.sika.api.vo.QuestionDTO;
+import cc.sika.exception.NoQuestionNumberException;
+import cc.sika.exception.WriteQuestionFailException;
 
 import java.util.List;
 
@@ -12,15 +14,15 @@ import java.util.List;
  * @创建时间 2022/12/7 - 16:42
  */
 public interface QuestionService {
-    QuestionVO getQuesById(int questionId);
+    QuestionDTO getQuesById(int questionId) throws NoQuestionNumberException;
 
-    List<QuestionVO> getQuesByTopic(Topic topic);
+    List<QuestionDTO> getQuesByTopic(Topic topic);
 
-    List<QuestionVO> getAllQues();
+    List<QuestionDTO> getAllQues();
 
-    HttpStatus addQuestion(Question question);
+    HttpStatus addQuestion(Question question) throws WriteQuestionFailException;
 
-    HttpStatus updateQuestion(Question question);
+    HttpStatus updateQuestion(Question question) throws WriteQuestionFailException;
 
-    HttpStatus deleteQuestionById(int questionId);
+    HttpStatus deleteQuestionById(int questionId) throws WriteQuestionFailException;
 }
