@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author 吴畅
  */
 @SpringBootApplication
-@EnableCustomSwagger2(basePackage = "cc.sika.web")
+@EnableCustomSwagger2
 public class QuestionBankApplication {
     public static void main(String[] args) {
         SpringApplication.run(QuestionBankApplication.class, args);
