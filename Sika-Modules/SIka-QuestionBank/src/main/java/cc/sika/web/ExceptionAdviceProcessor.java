@@ -1,7 +1,7 @@
 package cc.sika.web;
 
+import cc.sika.api.bean.dto.BaseResponse;
 import cc.sika.api.common.HttpStatus;
-import cc.sika.api.domain.BaseResponse;
 import cc.sika.exception.NoQuestionNumberException;
 import cc.sika.exception.WriteQuestionFailException;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +21,6 @@ import java.io.IOException;
 
 /**
  * 全局异常统一处理
- * @author 吴畅
- * @创建时间 2022/12/15 - 20:18
  */
 @RestControllerAdvice
 @RestController
@@ -37,7 +35,13 @@ public class ExceptionAdviceProcessor extends BaseController{
      * 日志记录
      */
     private void processErrorLog(Exception exception) {
-        log.error("错误产生URL:{}, 查询参数为: {}", request.getRequestURL(), request.getQueryString());
+        String requestMethod = request.getMethod();
+        if ("GET".equals(requestMethod)) {
+            log.error("错误产生URL:{}, 查询参数为: {}", request.getRequestURL(),
+                    request.getRequestURL().substring(request.getRequestURL().lastIndexOf("/") + 1));
+        } else {
+            log.error("错误产生URL:{}", request.getRequestURL());
+        }
         log.error("异常信息: {}, 异常对象: {}", exception.getMessage(), exception);
         log.error("远程异常ip: {},主机名 {}", request.getRemoteAddr(), request.getRemoteHost());
     }
@@ -84,7 +88,7 @@ public class ExceptionAdviceProcessor extends BaseController{
     @ExceptionHandler(NoQuestionNumberException.class)
     protected BaseResponse questionIdOufOf(NoQuestionNumberException exception) {
         processErrorLog(exception);
-        return responseFail(HttpStatus.BAD_REQUEST, "不存在该问题id");
+        return responseFail(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
     @ExceptionHandler(WriteQuestionFailException.class)

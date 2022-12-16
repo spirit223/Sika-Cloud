@@ -9,4 +9,8 @@ public class NoQuestionNumberException extends Exception {
     public NoQuestionNumberException(String message) {
         super(message);
     }
+
+    public NoQuestionNumberException(int id) {
+        super("There is no question with number: " + id);
+    }
 }

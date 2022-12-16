@@ -1,8 +1,10 @@
 package cc.sika.mapper;
 
-import cc.sika.api.domain.Answer;
+import cc.sika.api.bean.po.Answer;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author 吴畅
@@ -21,6 +23,8 @@ public interface AnswerMapper {
     int deleteAnswerById(@Param("answerId") int answerId);
 
     int addAnswer(Answer answer);
+
+    int addAnswerList(List<Answer> answerList);
 
     int updateAnswer(Answer answer);
 

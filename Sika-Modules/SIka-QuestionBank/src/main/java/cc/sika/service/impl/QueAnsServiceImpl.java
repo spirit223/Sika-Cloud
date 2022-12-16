@@ -1,8 +1,8 @@
 package cc.sika.service.impl;
 
+import cc.sika.api.bean.po.Answer;
+import cc.sika.api.bean.po.Question;
 import cc.sika.api.common.HttpStatus;
-import cc.sika.api.domain.Answer;
-import cc.sika.api.domain.Question;
 import cc.sika.mapper.AnswerMapper;
 import cc.sika.mapper.QuestionMapper;
 import cc.sika.service.QueAnsService;

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cc.sika.mapper.AnswerMapper">
 
-    <select id="queryAnswerById" resultType="cc.sika.api.domain.Answer" parameterType="_int">
+    <select id="queryAnswerById" resultType="cc.sika.api.bean.po.Answer" parameterType="_int">
         SELECT *
         FROM answer
         WHERE answer_id = #{answerId}
@@ -25,18 +25,31 @@
         WHERE question_id = #{questionId}
     </select>
 
+
+    <!--***********************************************************-->
+
     <delete id="deleteAnswerById" parameterType="_int">
         DELETE
         FROM answer
         WHERE answer_id = #{answerId}
     </delete>
 
-    <insert id="addAnswer" parameterType="answer">
+    <insert id="addAnswer" parameterType="cc.sika.api.bean.po.Answer">
         INSERT INTO answer (answer_content)
         VALUES (#{answerContent})
     </insert>
+    <insert id="addAnswerList" parameterType="cc.sika.api.bean.po.Answer" useGeneratedKeys="true"
+            keyProperty="answerId">
+        INSERT INTO
+        answer (answer_content, answer_image, question_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.answerContent}, #{item.answerImage}, #{item.questionId})
+        </foreach>
 
-    <update id="updateAnswer" parameterType="answer">
+    </insert>
+
+    <update id="updateAnswer" parameterType="cc.sika.api.bean.po.Answer">
         UPDATE answer
         SET answer_content = #{answerContent}
         WHERE answer_id = #{answerId}

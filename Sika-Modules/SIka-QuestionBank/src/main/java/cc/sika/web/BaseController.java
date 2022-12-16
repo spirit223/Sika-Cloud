@@ -1,7 +1,7 @@
 package cc.sika.web;
 
+import cc.sika.api.bean.dto.BaseResponse;
 import cc.sika.api.common.HttpStatus;
-import cc.sika.api.domain.BaseResponse;
 import org.springframework.util.StringUtils;
 
 /**
@@ -18,6 +18,7 @@ public abstract class BaseController {
     /**
      * 封装成功返回的的方法, 泛型的确定见
      * {@link BaseResponse}
+     *
      * @param data VO或DTO, 详见 {@link BaseResponse}
      * @return 默认成功的返回消息对象
      */
@@ -25,9 +26,14 @@ public abstract class BaseController {
         return responseSuccess(data, HttpStatus.SUCCESS.getMessage());
     }
 
+    protected BaseResponse responseSuccess() {
+        return responseSuccess(null);
+    }
+
     /**
      * 封装成功返回的方法, 携带成功信息
-     * @param data VO或DTO, 详见 {@link BaseResponse}
+     *
+     * @param data    VO或DTO, 详见 {@link BaseResponse}
      * @param message 要传递的成功信息, 默认为状态码枚举对应信息
      * @return 成功的返回消息对象
      */

@@ -54,7 +54,7 @@ swagger:
   enabled: true
   title: "Sika-Question接口文档"
   version: 1.0
-  base-path: /
+  base-path: "/**"
   description: "问题操作相关接口"
   contact:
     email: 2235569493@qq.com

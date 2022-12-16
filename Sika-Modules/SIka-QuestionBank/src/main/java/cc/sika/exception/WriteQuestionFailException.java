@@ -8,4 +8,8 @@ public class WriteQuestionFailException extends Exception {
     public WriteQuestionFailException(String message) {
         super(message);
     }
+
+    public WriteQuestionFailException() {
+        super("数据写入失败");
+    }
 }
