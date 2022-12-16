@@ -1,8 +1,8 @@
 package cc.sika.api;
 
+import cc.sika.api.bean.dto.Topic;
+import cc.sika.api.bean.po.Question;
 import cc.sika.api.common.HttpStatus;
-import cc.sika.api.domain.Question;
-import cc.sika.api.domain.Topic;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

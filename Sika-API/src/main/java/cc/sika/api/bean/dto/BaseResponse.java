@@ -1,4 +1,4 @@
-package cc.sika.api.domain;
+package cc.sika.api.bean.dto;
 
 import lombok.Data;
 
