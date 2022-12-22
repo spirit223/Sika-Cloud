@@ -1,0 +1,75 @@
+{
+  "groups": [
+    {
+      "name": "cc.security",
+      "type": "cc.sika.common.security.config.SecurityConfigProperties",
+      "sourceType": "cc.sika.common.security.config.SecurityConfigProperties"
+    },
+    {
+      "name": "cc.token",
+      "type": "cc.sika.common.security.config.JWTProperties",
+      "sourceType": "cc.sika.common.security.config.JWTProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cc.security.allow-cors",
+      "type": "java.lang.Boolean",
+      "sourceType": "cc.sika.common.security.config.SecurityConfigProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "cc.security.enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "cc.sika.common.security.config.SecurityConfigProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "cc.security.login-api",
+      "type": "java.lang.String",
+      "sourceType": "cc.sika.common.security.config.SecurityConfigProperties",
+      "defaultValue": "\/user\/login"
+    },
+    {
+      "name": "cc.security.logout-success-url",
+      "type": "java.lang.String",
+      "sourceType": "cc.sika.common.security.config.SecurityConfigProperties",
+      "defaultValue": "http:\/\/ironcentury.cc"
+    },
+    {
+      "name": "cc.security.logout-url",
+      "type": "java.lang.String",
+      "sourceType": "cc.sika.common.security.config.SecurityConfigProperties",
+      "defaultValue": "\/user\/logout"
+    },
+    {
+      "name": "cc.security.matches",
+      "type": "java.util.List<cc.sika.common.security.config.SecurityConfigProperties$Path4Permission>",
+      "sourceType": "cc.sika.common.security.config.SecurityConfigProperties"
+    },
+    {
+      "name": "cc.security.register-api",
+      "type": "java.lang.String",
+      "sourceType": "cc.sika.common.security.config.SecurityConfigProperties",
+      "defaultValue": "\/register"
+    },
+    {
+      "name": "cc.token.issuer",
+      "type": "java.lang.String",
+      "sourceType": "cc.sika.common.security.config.JWTProperties"
+    },
+    {
+      "name": "cc.token.jwt-t-t-l",
+      "type": "java.lang.Long",
+      "description": "有效期",
+      "sourceType": "cc.sika.common.security.config.JWTProperties"
+    },
+    {
+      "name": "cc.token.secret-key",
+      "type": "java.lang.String",
+      "description": "JWT 密钥",
+      "sourceType": "cc.sika.common.security.config.JWTProperties"
+    }
+  ],
+  "hints": []
+}

@@ -1,0 +1,70 @@
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  type-aliases-package: cc.sika.common.security.bean
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+
+server:
+  port: 65432
+
+# Spring配置
+spring:
+  profiles:
+    active: dev
+  # MySQL
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sika?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: wjc52292
+  redis:
+    host: 192.168.0.102
+    port: 6379
+    password: wjc52292
+    database: 0
+    timeout: 10s
+    lettuce:
+      pool:
+        # 连接池中的最小空闲连接
+        min-idle: 0
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池的最大数据库连接数
+        max-active: 8
+        # #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+logging:
+  level:
+    cc.sika.common.security.*: debug
+
+cc:
+  token:
+    secret-key: "abcdefghijklmnopqrstuvwxyz"
+    jwt-TTL: 3600000
+    issuer: "小吴来哩"
+  security:
+    enable: true
+    matches:
+      - path: "/security/test/get/**"
+        permission:
+          - "cc:admin:all"
+      - path: "/question/add"
+        permission:
+          - "cc:admin:all"
+          - "cc:question:all"
+      - path: "/question/addBatch"
+        permission:
+          - "cc:admin:all"
+          - "cc:question:all"
+      - path: "/question/update"
+        permission:
+          - "cc:admin:all"
+          - "cc:question:all"
+      - path: "/question/delete"
+        permission: ""
+      - path: "/user/logout"
+        permission:
+          - "cc:admin:all"
+          - "cc:common:all"
+          - "cc:question:all"
+          - "cc:question:get"
+

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.sika.common.security.mapper.PermissionMapper">
+
+    <insert id="addPermission">
+        INSERT INTO sys_permission (permission_name,
+                                    permissions,
+                                    create_by,
+                                    create_time,
+                                    update_by,
+                                    update_time,
+                                    del_flag,
+                                    remark)
+        VALUES (#{permissionName},
+                #{permissions},
+                #{createBy},
+                NOW(),
+                #{updateBy},
+                NOW(),
+                #{delFlag},
+                #{remark})
+    </insert>
+    <insert id="addPermissionBatch">
+        INSERT INTO
+        sys_permission (
+        permission_name,
+        permissions,
+        create_by,
+        create_time,
+        update_by,
+        update_time,
+        del_flag,
+        remark
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.permissionName},
+            #{item.permissions},
+            #{item.createBy},
+            NOW(),
+            #{item.updateBy},
+            NOW(),
+            #{item.delFlag},
+            #{item.remark}
+            )
+        </foreach>
+    </insert>
+
+    <update id="deletePermissionById">
+        UPDATE sys_permission
+        SET del_flag    = 1,
+            update_time = NOW()
+        WHERE id = #{permissionId}
+    </update>
+
+    <update id="deletePermissionBatch">
+        UPDATE sys_permission
+        SET del_flag = 1, update_time = NOW()
+        WHERE id IN
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="updatePermission">
+        UPDATE sys_permission
+        <set>
+            <if test="!''.equals(permissionName) &amp;&amp; permissionName != null">permission_name =
+                #{permissionName},
+            </if>
+            <if test="!''.equals(permissions) &amp;&amp; permissions != null">permissions = #{permissions},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="!''.equals(remark) &amp;&amp; remark != null">remark = #{remark}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!--todo-->
+    <update id="updatePermissionBatch"></update>
+
+    <delete id="truncatePermissionById">
+        DELETE
+        FROM sys_permission
+        WHERE id = #{id}
+    </delete>
+    <delete id="truncatePermissionBatch">
+        DELETE FROM sys_permission
+        WHERE id IN
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <select id="getPermissionById" resultType="cc.sika.common.security.bean.po.Permission">
+        SELECT id,
+               permission_name,
+               permissions,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag,
+               remark
+        FROM sys_permission
+        WHERE id = #{id}
+    </select>
+    <select id="getPermissionByName" resultType="cc.sika.common.security.bean.po.Permission">
+        SELECT id,
+               permission_name,
+               permissions,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag,
+               remark
+        FROM sys_permission
+        WHERE permission_name = #{permissionName}
+    </select>
+    <select id="getAllPermission" resultType="cc.sika.common.security.bean.po.Permission">
+        SELECT id,
+               permission_name,
+               permissions,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag,
+               remark
+        FROM sys_permission
+    </select>
+</mapper>
