@@ -1,5 +1,6 @@
 package cc.sika.api.bean.bo;
 
+import cc.sika.api.bean.po.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,10 @@ public class AnswerBO {
 
     public AnswerBO(String answerContent) {
         this.answerContent = answerContent;
+    }
+
+    public AnswerBO(Answer answer) {
+        this.answerContent = answer.getAnswerContent();
+        this.answerImage = answer.getAnswerImage();
     }
 }
