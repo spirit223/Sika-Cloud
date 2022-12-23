@@ -2,8 +2,10 @@ package cc.sika.web;
 
 import cc.sika.api.bean.dto.BaseResponse;
 import cc.sika.api.common.HttpStatus;
+import cc.sika.api.web.BaseController;
+import cc.sika.exception.NoAnswerException;
 import cc.sika.exception.NoQuestionNumberException;
-import cc.sika.exception.WriteQuestionFailException;
+import cc.sika.exception.WriteFailException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -26,7 +28,7 @@ import java.io.IOException;
 @RestController
 @Slf4j
 @SuppressWarnings("rawtypes")
-public class ExceptionAdviceProcessor extends BaseController{
+public class ExceptionAdviceProcessor extends BaseController {
 
     @Resource
     private HttpServletRequest request;
@@ -91,8 +93,8 @@ public class ExceptionAdviceProcessor extends BaseController{
         return responseFail(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
-    @ExceptionHandler(WriteQuestionFailException.class)
-    protected BaseResponse writeQuestionFail(WriteQuestionFailException exception) {
+    @ExceptionHandler(WriteFailException.class)
+    protected BaseResponse writeQuestionFail(WriteFailException exception) {
         processErrorLog(exception);
         return responseFail(HttpStatus.CONFLICT, exception.getMessage());
     }
@@ -101,5 +103,11 @@ public class ExceptionAdviceProcessor extends BaseController{
     protected BaseResponse systemError(Exception exception) {
         processErrorLog(exception);
         return responseFail(HttpStatus.ERROR);
+    }
+
+    @ExceptionHandler(NoAnswerException.class)
+    protected BaseResponse noAnswerException(Exception exception) {
+        processErrorLog(exception);
+        return responseFail(HttpStatus.NOT_FOUND);
     }
 }
