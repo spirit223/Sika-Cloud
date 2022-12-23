@@ -9,7 +9,6 @@ import java.lang.annotation.*;
 
 /**
  * 开启自动配置Swagger-UI注解, 在启动类上添加该注解以自动生成接口文档
- *
  * @author 吴畅
  * @创建时间 2022/12/12 - 23:29
  */
@@ -19,7 +18,7 @@ import java.lang.annotation.*;
 @Inherited
 @Import(SwaggerAutoConfiguration.class)
 @ComponentScan
-public @interface EnableCustomSwagger2 {
+public @interface EnableCustomSwagger {
     @AliasFor(annotation = ComponentScan.class, attribute = "basePackages")
     String[] value() default {};
 

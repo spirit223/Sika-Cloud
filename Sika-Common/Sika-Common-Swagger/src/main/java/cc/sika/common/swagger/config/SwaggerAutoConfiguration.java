@@ -1,6 +1,6 @@
 package cc.sika.common.swagger.config;
 
-import cc.sika.common.swagger.annotation.EnableCustomSwagger2;
+import cc.sika.common.swagger.annotation.EnableCustomSwagger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -116,13 +116,13 @@ public class SwaggerAutoConfiguration implements ApplicationContextAware {
      * 从注解值中获取包路径
      */
     private String getPackageByAnnotation() {
-        Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(EnableCustomSwagger2.class);
+        Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(EnableCustomSwagger.class);
         if (beansWithAnnotation.isEmpty()) {
             return "";
         }
-        EnableCustomSwagger2 customSwagger2 = null;
+        EnableCustomSwagger customSwagger2 = null;
         for (String key : beansWithAnnotation.keySet()) {
-            customSwagger2 = beansWithAnnotation.get(key).getClass().getAnnotation(EnableCustomSwagger2.class);
+            customSwagger2 = beansWithAnnotation.get(key).getClass().getAnnotation(EnableCustomSwagger.class);
             break;
         }
         return customSwagger2.basePackage();
