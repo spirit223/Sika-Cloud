@@ -4,8 +4,9 @@ import cc.sika.api.bean.bo.QuestionWithAnswerBO;
 import cc.sika.api.bean.dto.BaseResponse;
 import cc.sika.api.bean.dto.Topic;
 import cc.sika.api.bean.po.Question;
+import cc.sika.api.web.BaseController;
 import cc.sika.exception.NoQuestionNumberException;
-import cc.sika.exception.WriteQuestionFailException;
+import cc.sika.exception.WriteFailException;
 import cc.sika.service.QuestionService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -42,7 +43,7 @@ public class QuestionController extends BaseController {
         return responseSuccess(service.getQuesByIdWithAnswer(questionId));
     }
 
-    @GetMapping("/topic/{topic}")
+    @GetMapping("/get/topic/{topic}")
     @ApiOperation(value = "获取多个题目", notes = "通过分类来获取题目信息")
     @ApiImplicitParams(@ApiImplicitParam(name = "topic", dataTypeClass = Topic.class, value = "要获取信息的题目的分类"))
     @ApiResponse(code = 200, message = "返回BaseResponse对象, data域中为 符合分类的题目信息列表")
@@ -75,7 +76,7 @@ public class QuestionController extends BaseController {
     )
     @SuppressWarnings("rawtypes")
     public BaseResponse addQue(@NotEmpty(message = "Question对象不能为空")
-                               @RequestBody Question question) throws WriteQuestionFailException {
+                               @RequestBody Question question) throws WriteFailException {
         return responseSuccess(service.addQuestion(question), "题目添加成功");
     }
 
@@ -84,12 +85,12 @@ public class QuestionController extends BaseController {
      *
      * @param questionList 题目列表
      */
-    @PostMapping("/addBatch")
+    @PostMapping("/add/batch")
     @ApiOperation(value = "POST 批量添加题目")
     @ApiImplicitParam(name = "questionList", value = "要添加的题目列表", required = true)
     @SuppressWarnings("rawtypes")
     public BaseResponse addQueList(@NotEmpty(message = "Question列表不能为空")
-                                   @RequestBody List<Question> questionList) throws WriteQuestionFailException {
+                                   @RequestBody List<Question> questionList) throws WriteFailException {
         int insertCount = service.addQuestionList(questionList);
         return responseSuccess("请求插入题目数量为:" + questionList.size() + ", 插入成功数据数量为: " + insertCount);
     }
@@ -110,7 +111,7 @@ public class QuestionController extends BaseController {
     )
     @SuppressWarnings("rawtypes")
     public BaseResponse updateQue(@NotEmpty(message = "Question对象不能为空")
-                                  @RequestBody Question question) throws WriteQuestionFailException {
+                                  @RequestBody Question question) throws WriteFailException {
         return responseSuccess(service.updateQuestion(question), "题目修改成功");
     }
 
@@ -124,7 +125,7 @@ public class QuestionController extends BaseController {
     @ApiOperation(value = "删除题目", notes = "通过id来删除题目")
     @ApiImplicitParams(@ApiImplicitParam(name = "questionId", dataTypeClass = Integer.class, value = "要删除信息的题目id"))
     @SuppressWarnings("rawtypes")
-    public BaseResponse deleteQue(@PathVariable("id") int questionId) throws WriteQuestionFailException {
+    public BaseResponse deleteQue(@PathVariable("id") int questionId) throws WriteFailException {
         return responseSuccess(service.deleteQuestionById(questionId), "题目删除成功");
     }
 
