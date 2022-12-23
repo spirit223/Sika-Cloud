@@ -7,7 +7,7 @@ import cc.sika.api.bean.po.Answer;
 import cc.sika.api.bean.po.Question;
 import cc.sika.api.common.HttpStatus;
 import cc.sika.exception.NoQuestionNumberException;
-import cc.sika.exception.WriteQuestionFailException;
+import cc.sika.exception.WriteFailException;
 import cc.sika.mapper.AnswerMapper;
 import cc.sika.mapper.QuestionMapper;
 import cc.sika.service.QuestionService;
@@ -87,14 +87,14 @@ public class DefaultQuestionService implements QuestionService {
 
     /*-----------------------------------------------------------------------*/
     @Override
-    public HttpStatus addQuestion(Question question) throws WriteQuestionFailException {
+    public HttpStatus addQuestion(Question question) throws WriteFailException {
         int addResult = questionMapper.addQuestion(question);
         checkResult(addResult, null);
         return HttpStatus.SUCCESS;
     }
 
     @Override
-    public HttpStatus addQuestion(QuestionWithAnswerBO questionWithAnswer) throws WriteQuestionFailException {
+    public HttpStatus addQuestion(QuestionWithAnswerBO questionWithAnswer) throws WriteFailException {
         Answer answer = questionWithAnswer.getAnswer();
         int questionResult = questionMapper.addQuestion(new Question(questionWithAnswer));
         checkResult(questionResult, "题目写入失败");
@@ -107,30 +107,30 @@ public class DefaultQuestionService implements QuestionService {
     }
 
     @Override
-    public HttpStatus updateQuestion(Question question) throws WriteQuestionFailException {
+    public HttpStatus updateQuestion(Question question) throws WriteFailException {
         int updateResult = questionMapper.updateQuestion(question);
         checkResult(updateResult, "更新题目失败");
         return HttpStatus.SUCCESS;
     }
 
     @Override
-    public HttpStatus deleteQuestionById(int questionId) throws WriteQuestionFailException {
+    public HttpStatus deleteQuestionById(int questionId) throws WriteFailException {
         int deleteResult = questionMapper.deleteQuestion(questionId);
         checkResult(deleteResult, "删除");
         return HttpStatus.SUCCESS;
     }
 
     @Override
-    public int addQuestionList(List<Question> questionList) throws WriteQuestionFailException {
+    public int addQuestionList(List<Question> questionList) throws WriteFailException {
         int batchResult = questionMapper.addQuestionList(questionList);
         if (batchResult <= 0 || batchResult != questionList.size()) {
-            throw new WriteQuestionFailException("批量插入失败");
+            throw new WriteFailException("批量插入失败");
         }
         return batchResult;
     }
 
     @Override
-    public int addQuestionAndAnswerList(List<QuestionWithAnswerBO> questionBOList) throws WriteQuestionFailException {
+    public int addQuestionAndAnswerList(List<QuestionWithAnswerBO> questionBOList) throws WriteFailException {
         List<Answer> answerList = questionBOList.stream().map(QuestionWithAnswerBO::getAnswer).collect(Collectors.toList());
         int answerAddCount = answerMapper.addAnswerList(answerList);
         int questionAddCount = questionMapper.addQuestionList(questionBOList.stream().map(Question::new).collect(Collectors.toList()));
@@ -140,12 +140,12 @@ public class DefaultQuestionService implements QuestionService {
     }
 
 
-    private void checkResult(int count, String failMessage) throws WriteQuestionFailException {
+    private void checkResult(int count, String failMessage) throws WriteFailException {
         if (count == 0) {
             if (!StringUtils.hasText(failMessage)) {
-                throw new WriteQuestionFailException();
+                throw new WriteFailException();
             } else {
-                throw new WriteQuestionFailException(failMessage);
+                throw new WriteFailException(failMessage);
             }
         }
     }

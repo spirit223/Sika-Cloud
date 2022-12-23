@@ -6,7 +6,7 @@ import cc.sika.api.bean.dto.Topic;
 import cc.sika.api.bean.po.Question;
 import cc.sika.api.common.HttpStatus;
 import cc.sika.exception.NoQuestionNumberException;
-import cc.sika.exception.WriteQuestionFailException;
+import cc.sika.exception.WriteFailException;
 
 import java.util.List;
 
@@ -66,52 +66,52 @@ public interface QuestionService {
      *
      * @param question 题目PO 对象
      * @return 成功返回成功状态码枚举 HttpStatus.SUCCESS 详见 {@link HttpStatus}
-     * @throws WriteQuestionFailException 资源耗尽, 死锁, 数据库崩溃
+     * @throws WriteFailException 资源耗尽, 死锁, 数据库崩溃
      */
-    HttpStatus addQuestion(Question question) throws WriteQuestionFailException;
+    HttpStatus addQuestion(Question question) throws WriteFailException;
 
     /**
      * 添加题目信息, 如果题目包含答案, 会将答案同步存入数据库
      *
      * @param questionWithAnswer 题目信息BO对象, 详见 {@link QuestionWithAnswerBO}
      * @return 成功返回成功状态码枚举 HttpStatus.SUCCESS 详见 {@link HttpStatus}
-     * @throws WriteQuestionFailException 资源耗尽, 死锁, 数据库崩溃
+     * @throws WriteFailException 资源耗尽, 死锁, 数据库崩溃
      */
-    HttpStatus addQuestion(QuestionWithAnswerBO questionWithAnswer) throws WriteQuestionFailException;
+    HttpStatus addQuestion(QuestionWithAnswerBO questionWithAnswer) throws WriteFailException;
 
     /**
      * 通过参数的question对象id更新题目信息
      *
      * @param question 要更新的题目PO对象
      * @return 更新成功返回成功状态码枚举 HttpStatus.SUCCESS 详见 {@link HttpStatus}
-     * @throws WriteQuestionFailException 资源耗尽, 死锁, 数据库崩溃
+     * @throws WriteFailException 资源耗尽, 死锁, 数据库崩溃
      */
-    HttpStatus updateQuestion(Question question) throws WriteQuestionFailException;
+    HttpStatus updateQuestion(Question question) throws WriteFailException;
 
     /**
      * 删除题目信息
      *
      * @param questionId 要删除的题目id
      * @return 删除成功返回成功状态码枚举 HttpStatus.SUCCESS 详见 {@link HttpStatus}
-     * @throws WriteQuestionFailException 资源耗尽, 死锁, 数据库崩溃
+     * @throws WriteFailException 资源耗尽, 死锁, 数据库崩溃
      */
-    HttpStatus deleteQuestionById(int questionId) throws WriteQuestionFailException;
+    HttpStatus deleteQuestionById(int questionId) throws WriteFailException;
 
     /**
      * 批量添加题目
      *
      * @param questionList 包含题目PO的列表
      * @return 插入成功数量
-     * @throws WriteQuestionFailException 资源耗尽, 死锁, 数据库崩溃
+     * @throws WriteFailException 资源耗尽, 死锁, 数据库崩溃
      */
-    int addQuestionList(List<Question> questionList) throws WriteQuestionFailException;
+    int addQuestionList(List<Question> questionList) throws WriteFailException;
 
     /**
      * 批量添加题目合答案
      *
      * @param questionBOList 包含 QuestionWithAnswerBO 的列表, 详见 {@link QuestionWithAnswerBO}
      * @return 插入成功的数量
-     * @throws WriteQuestionFailException 插入异常
+     * @throws WriteFailException 插入异常
      */
-    int addQuestionAndAnswerList(List<QuestionWithAnswerBO> questionBOList) throws WriteQuestionFailException;
+    int addQuestionAndAnswerList(List<QuestionWithAnswerBO> questionBOList) throws WriteFailException;
 }
