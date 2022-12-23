@@ -4,23 +4,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cc.sika.mapper.AnswerMapper">
 
-    <select id="queryAnswerById" resultType="cc.sika.api.bean.po.Answer" parameterType="_int">
-        SELECT *
+    <select id="getAnswerById" resultType="cc.sika.api.bean.po.Answer" parameterType="_int">
+        SELECT answer_id, answer_content, answer_image, question_id
         FROM answer
         WHERE answer_id = #{answerId}
     </select>
-    <select id="queryAnswerContentById" resultType="java.lang.String">
+    <select id="getAnswerContentById" resultType="java.lang.String">
         SELECT answer_content
         FROM answer
         WHERE answer_id = #{answerId}
     </select>
-    <select id="queryAnswerIdByQueId" resultType="java.lang.Integer">
+    <select id="getAnswerIdByQueId" resultType="java.lang.Integer">
         SELECT answer_id
         FROM answer
         WHERE question_id = #{questionId}
     </select>
-    <select id="queryContentByQueId" resultType="java.lang.String">
+    <select id="getContentByQueId" resultType="java.lang.String">
         SELECT answer_content
+        FROM answer
+        WHERE question_id = #{questionId}
+    </select>
+    <select id="getAnswerByQueId" resultType="cc.sika.api.bean.po.Answer">
+        SELECT answer_id, answer_content, answer_image, question_id
         FROM answer
         WHERE question_id = #{questionId}
     </select>
@@ -33,25 +38,38 @@
         FROM answer
         WHERE answer_id = #{answerId}
     </delete>
+    <delete id="deleteAnswerBatch">
+        DELETE FROM answer
+        WHERE answer_id IN
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
 
-    <insert id="addAnswer" parameterType="cc.sika.api.bean.po.Answer">
-        INSERT INTO answer (answer_content)
-        VALUES (#{answerContent})
+    <insert id="addAnswer" parameterType="cc.sika.api.bean.po.Answer"
+            useGeneratedKeys="true" keyProperty="answerId"
+    >
+        INSERT INTO answer (answer_content, answer_image, question_id)
+        VALUES (#{answerContent}, #{answerImage}, #{questionId})
     </insert>
-    <insert id="addAnswerList" parameterType="cc.sika.api.bean.po.Answer" useGeneratedKeys="true"
-            keyProperty="answerId">
+    <insert id="addAnswerList" parameterType="cc.sika.api.bean.po.Answer"
+            useGeneratedKeys="true" keyProperty="answerId"
+    >
         INSERT INTO
         answer (answer_content, answer_image, question_id)
         VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.answerContent}, #{item.answerImage}, #{item.questionId})
         </foreach>
-
     </insert>
 
     <update id="updateAnswer" parameterType="cc.sika.api.bean.po.Answer">
         UPDATE answer
-        SET answer_content = #{answerContent}
+        <set>
+            <if test="!''.equals(answerContent) &amp;&amp; answerContent != null">answer_content = #{answerContent}</if>
+            <if test="answerImage != null">answer_image = #{answerImage}</if>
+            <if test="questionId != null">question_id = #{questionId}</if>
+        </set>
         WHERE answer_id = #{answerId}
     </update>
     <update id="updateQueId">
@@ -59,4 +77,6 @@
         SET question_id = #{questionId}
         WHERE answer_id = #{answerId}
     </update>
+    <!-- todo -->
+    <update id="updateAnswerBatch"></update>
 </mapper>
