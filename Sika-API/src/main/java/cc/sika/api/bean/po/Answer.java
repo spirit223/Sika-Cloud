@@ -1,8 +1,13 @@
 package cc.sika.api.bean.po;
 
+import cc.sika.api.bean.bo.AnswerBO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * <p>
@@ -15,8 +20,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Answer {
-    private int answerId;
+public class Answer implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
+
+    private Integer answerId;
     private String answerContent;
     private byte[] answerImage;
     private int questionId = -1;
@@ -37,4 +45,23 @@ public class Answer {
         this.answerImage = answerImage;
     }
 
+    public Answer(AnswerBO answerBO) {
+        this.answerContent = answerBO.getAnswerContent();
+        this.answerImage = answerBO.getAnswerImage();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Answer)) return false;
+        Answer answer = (Answer) o;
+        return questionId == answer.questionId && answerContent.equals(answer.answerContent) && Arrays.equals(answerImage, answer.answerImage);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(answerContent, questionId);
+        result = 31 * result + Arrays.hashCode(answerImage);
+        return result;
+    }
 }
