@@ -1,20 +1,3 @@
-# 开发环境配置
-server:
-  # 服务器的HTTP端口，默认为8080
-  port: 8104
-  servlet:
-    # 应用的访问路径
-    context-path: /
-  tomcat:
-    # tomcat的URI编码
-    uri-encoding: UTF-8
-    # 连接数满后的排队数，默认为100
-    accept-count: 1000
-    threads:
-      # tomcat最大线程数，默认为200
-      max: 800
-      # Tomcat启动初始化的线程数，默认值10
-      min-spare: 100
 spring:
   application:
     # 服务名称
@@ -23,8 +6,52 @@ spring:
     nacos:
       # 服务发现地址
       discovery:
-        server-addr: 192.168.32.1:8848
+        server-addr: 192.168.0.102:8848
       # 配置中心
       config:
-        server-addr: 192.168.32.1:8848
+        server-addr: 192.168.0.102:8848
         file-extension: yaml
+
+# MyBatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: cc.sika.api.domain
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  # 加载全局的配置文件
+  configLocation: classpath:mybatis/mybatis-config.xml
+
+cc:
+  token:
+    secret-key: "abcdefghijklmnopqrstuvwxyz"
+    jwt-TTL: 3600000
+    issuer: "小吴来哩"
+  security:
+    enable: false
+    matches:
+      - path: "/question/add"
+        permission:
+          - "cc:admin:all"
+          - "cc:question:all"
+      - path: "/question/addBatch"
+        permission:
+          - "cc:admin:all"
+          - "cc:question:all"
+      - path: "/question/update"
+        permission:
+          - "cc:admin:all"
+          - "cc:question:all"
+      - path: "/question/delete"
+        permission: ""
+      - path: "/user/logout"
+        permission:
+          - "cc:admin:all"
+          - "cc:common:all"
+          - "cc:question:all"
+          - "cc:question:get"
+      - path: "/question/delete/**"
+        permission:
+          - "cc:admin:all"
+          - "cc:question:all"
+      - path: "/test/get/**"
+        permission: ""
