@@ -1,4 +1,4 @@
-package cc.sika.web;
+package cc.sika.api.web;
 
 import cc.sika.api.bean.dto.BaseResponse;
 import cc.sika.api.common.HttpStatus;
@@ -6,11 +6,12 @@ import org.springframework.util.StringUtils;
 
 /**
  * <p>
- * 基础控制器, 所有控制器返回都使用 BaseResponse 来存储, 使用泛型 <code>T</code> 来存储真实数据, 并且只有成功返回才会携带数据, 失败的返回都不带泛型
+ * 基础控制器, 所有控制器返回都使用 {@link BaseResponse} 来存储, 使用泛型 <code>T</code> 来存储真实数据, 并且只有成功返回才会携带数据, 失败的返回都不带泛型
  * </p>
  * <p>
- *     每个控制器都继承该类来完成统一数据处理
+ * 每个控制器都继承该类来完成统一数据处理
  * </p>
+ *
  * @author 吴畅
  * @创建时间 2022/12/15 - 19:24
  */
@@ -40,9 +41,13 @@ public abstract class BaseController {
     protected <T> BaseResponse<T> responseSuccess(T data, String message) {
         BaseResponse<T> response = new BaseResponse<>();
         response.setSuccess(true);
-        response.setData(data);
-        response.setCode(HttpStatus.SUCCESS.getCode());
         response.setMessage(message);
+        if (data instanceof HttpStatus) {
+            response.setCode(((HttpStatus) data).getCode());
+        } else {
+            response.setData(data);
+            response.setCode(HttpStatus.SUCCESS.getCode());
+        }
         return response;
     }
 
