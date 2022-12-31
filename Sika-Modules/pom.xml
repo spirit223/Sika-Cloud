@@ -17,6 +17,7 @@
         <module>SIka-QuestionBank</module>
         <module>Sika-Data-Share</module>
         <module>Sika-Exam</module>
+        <module>Sika-Upload</module>
     </modules>
 
     <dependencies>
