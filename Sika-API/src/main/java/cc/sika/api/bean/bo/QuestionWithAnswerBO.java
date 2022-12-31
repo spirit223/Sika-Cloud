@@ -1,6 +1,7 @@
 package cc.sika.api.bean.bo;
 
 import cc.sika.api.bean.po.Answer;
+import cc.sika.api.bean.po.Question;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,10 +20,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class QuestionWithAnswerBO {
     private Integer questionId;
-    private char questionType;
+    private String questionType;
     private String questionContent;
     private byte[] questionImage;
     private String questionDescription;
     private String questionTopic;
     private Answer answer;
+
+    public Question getQuestion() {
+        return new Question(questionId, questionType, questionContent, questionImage, questionDescription, answer.getAnswerId(), questionTopic);
+    }
+
+    public Answer getAnswer() {
+        this.answer.setQuestionId(this.questionId);
+        return answer;
+    }
 }

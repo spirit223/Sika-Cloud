@@ -31,7 +31,7 @@ public class Question {
      *     <li>主观题 -- 4</li>
      * </ul>
      */
-    private char questionType;
+    private String questionType;
     /**
      * 题目内容
      */
@@ -55,7 +55,7 @@ public class Question {
      */
     private String questionTopic;
 
-    public Question(char questionType, String questionContent, byte[] questionImage, String questionDescription, Integer answerId, String questionTopic) {
+    public Question(String questionType, String questionContent, byte[] questionImage, String questionDescription, Integer answerId, String questionTopic) {
         this.questionType = questionType;
         this.questionContent = questionContent;
         this.questionImage = questionImage;

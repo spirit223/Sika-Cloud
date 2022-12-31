@@ -19,7 +19,7 @@ public class QuestionBO {
     /**
      * 题目类型
      */
-    private char questionType;
+    private String questionType;
     /**
      * 题目内容
      */
