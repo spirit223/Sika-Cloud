@@ -67,7 +67,7 @@ public class QuestionController extends BaseController {
      * @return 返回写入的结果
      */
     @PostMapping("/add")
-    @ApiOperation(value = "通过 POST 方式添加题目")
+    @ApiOperation(value = "添加单个题目")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "question",
                     dataTypeClass = Question.class,
@@ -86,11 +86,11 @@ public class QuestionController extends BaseController {
      * @param questionList 题目列表
      */
     @PostMapping("/add/batch")
-    @ApiOperation(value = "POST 批量添加题目")
+    @ApiOperation(value = "批量添加题目")
     @ApiImplicitParam(name = "questionList", value = "要添加的题目列表", required = true)
     @SuppressWarnings("rawtypes")
-    public BaseResponse addQueList(@NotEmpty(message = "Question列表不能为空")
-                                   @RequestBody List<Question> questionList) throws WriteFailException {
+    public BaseResponse addBatch(@NotEmpty(message = "Question列表不能为空")
+                                 @RequestBody List<Question> questionList) throws WriteFailException {
         int insertCount = service.addQuestionList(questionList);
         return responseSuccess("请求插入题目数量为:" + questionList.size() + ", 插入成功数据数量为: " + insertCount);
     }
@@ -102,7 +102,7 @@ public class QuestionController extends BaseController {
      * @return 返回写入的结果
      */
     @PutMapping("/update")
-    @ApiOperation(value = "通过 PUT 方式更新题目")
+    @ApiOperation(value = "更新题目")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "question",
                     dataTypeClass = Question.class,

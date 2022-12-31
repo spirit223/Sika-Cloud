@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>SIka-QuestionBank</artifactId>
+    <artifactId>Sika-QuestionBank</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -38,6 +38,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>cc.sika</groupId>-->
+        <!--            <artifactId>Sika-Security</artifactId>-->
+        <!--            <version>1.0</version>-->
+        <!--        </dependency>-->
     </dependencies>
 
 </project>

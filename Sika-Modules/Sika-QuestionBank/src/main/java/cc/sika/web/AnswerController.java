@@ -47,7 +47,7 @@ public class AnswerController extends BaseController {
     }
 
     @PostMapping("/add/batch")
-    public BaseResponse<HttpStatus> addAnswerBatch(@RequestBody List<Answer> answerList) {
+    public BaseResponse addAnswerBatch(@RequestBody List<Answer> answerList) {
         if (answerList.isEmpty()) {
             return responseSuccess(HttpStatus.ACCEPTED, "添加列表为空");
         }

@@ -33,4 +33,18 @@ public class AnswerMapperTest {
         int i = answerMapper.addAnswerList(answerList);
         System.out.println("插入数量: " + i);
     }
+
+    @Test
+    void testGetAnswerContent() {
+        String s = answerMapper.getAnswerContentById(10);
+        if (s == null) {
+            System.out.println("查询结果为null");
+        }
+        System.out.println(s);
+    }
+
+    @Test
+    void testDeleteBatch() {
+        int i = answerMapper.deleteAnswerBatch(Arrays.asList(8, 9));
+    }
 }

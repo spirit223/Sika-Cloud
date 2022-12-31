@@ -34,9 +34,9 @@ public class QuestionBankTest {
     @Resource
     private ObjectMapper jsonMapper;
 
-    List<Question> questionList = new ArrayList<>(Arrays.asList(new Question('1', "给你两个非空的链表，表示两个非负的整数。它们每位数字都是按照逆序的方式存储的，并且每个节点只能存储一位数字。请你将两个数相加，并以相同形式返回一个表示和的链表", null, "可以假设除了数字 0 之外，这两个数都不会以 0 开头", 1, "算法题"),
-            new Question('1', "给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度", null, "", 2, "字符串"),
-            new Question('2', "给你一个链表数组，每个链表都已经按升序排列", null, "请你将所有链表合并到一个升序链表中，返回合并后的链表", 3, "链表")));
+    List<Question> questionList = new ArrayList<>(Arrays.asList(new Question("1", "给你两个非空的链表，表示两个非负的整数。它们每位数字都是按照逆序的方式存储的，并且每个节点只能存储一位数字。请你将两个数相加，并以相同形式返回一个表示和的链表", null, "可以假设除了数字 0 之外，这两个数都不会以 0 开头", 1, "算法题"),
+            new Question("1", "给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度", null, "", 2, "字符串"),
+            new Question("2", "给你一个链表数组，每个链表都已经按升序排列", null, "请你将所有链表合并到一个升序链表中，返回合并后的链表", 3, "链表")));
 
     @Test
     void testFuzzyQuery() {
@@ -92,7 +92,7 @@ public class QuestionBankTest {
 
     @Test
     void testInsert() {
-        Question question = new Question('1', "给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标",
+        Question question = new Question("1", "给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标",
                 null, "你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现",
                 null, "算法题");
         int i = questionMapper.addQuestion(question);
@@ -101,7 +101,7 @@ public class QuestionBankTest {
 
     @Test
     void testUpdate() {
-        Question question = new Question(2, '1', "给你一个整数 x ，如果 x 是一个回文整数，返回 true ；否则，返回 false",
+        Question question = new Question(2, "1", "给你一个整数 x ，如果 x 是一个回文整数，返回 true ；否则，返回 false",
                 null, "回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数",
                 null, "算法题");
         int i = questionMapper.updateQuestion(question);

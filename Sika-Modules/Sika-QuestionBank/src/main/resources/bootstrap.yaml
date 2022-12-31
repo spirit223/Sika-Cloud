@@ -29,6 +29,10 @@ cc:
   security:
     enable: false
     matches:
+      - path: "/question/get/**"
+        permission:
+          - "cc:admin:all"
+          - "cc:question:all"
       - path: "/question/add"
         permission:
           - "cc:admin:all"
@@ -54,4 +58,5 @@ cc:
           - "cc:admin:all"
           - "cc:question:all"
       - path: "/test/get/**"
-        permission: ""
+        permission:
+          - "cc:admin:all"

@@ -32,6 +32,8 @@ public interface QuestionMapper {
      */
     Question queryQuestionById(@Param("questionId") int questionId);
 
+    List<Question> queryQuestionByContent(@Param("questionContent") String content);
+
     /**
      * 通过题目id获取题目对象, 获取出来的题目对象是BO对象,会携带答案信息
      *
