@@ -23,13 +23,13 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question`
 (
-    `question_id`          int                                                           NOT NULL AUTO_INCREMENT,
-    `question_type`        char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      NULL DEFAULT NULL,
-    `question_content`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-    `question_image`       mediumblob                                                    NULL,
-    `question_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-    `answer_id`            int                                                           NULL DEFAULT NULL,
-    `question_topic`       varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  NULL DEFAULT NULL,
+    `question_id`          int                                                          NOT NULL AUTO_INCREMENT,
+    `question_type`        char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci     NULL DEFAULT NULL,
+    `question_content`     TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci        NOT NULL,
+    `question_image`       mediumblob                                                   NULL,
+    `question_description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci        NULL DEFAULT NULL,
+    `answer_id`            int                                                          NULL DEFAULT NULL,
+    `question_topic`       varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
     PRIMARY KEY (`question_id`) USING BTREE
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 19
