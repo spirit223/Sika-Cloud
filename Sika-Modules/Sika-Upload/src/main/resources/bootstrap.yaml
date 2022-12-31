@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: upload-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.0.102:8848
