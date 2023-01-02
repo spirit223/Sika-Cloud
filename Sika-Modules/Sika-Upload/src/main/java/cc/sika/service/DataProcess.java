@@ -3,6 +3,7 @@ package cc.sika.service;
 import cc.sika.api.bean.po.Question;
 import cc.sika.api.common.HttpStatus;
 import cc.sika.entity.QuestionAndAnswerExcel;
+import cc.sika.exception.NoQuestionException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -44,4 +45,11 @@ public interface DataProcess {
      * @return
      */
     HttpStatus processQueWithAnswer(MultipartFile multipartFile) throws IOException;
+
+    /**
+     * 题库导出成excel
+     */
+    List<QuestionAndAnswerExcel> exportQA(String filename) throws NoQuestionException, IOException;
+
+    List<QuestionAndAnswerExcel> exportQANo2File() throws NoQuestionException;
 }

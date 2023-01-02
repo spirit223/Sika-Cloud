@@ -8,6 +8,7 @@ import com.alibaba.excel.read.listener.PageReadListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,12 @@ public class DefaultParsingExcel implements ParsingExcel {
                 QuestionAndAnswerExcel.class,
                 new PageReadListener<QuestionAndAnswerExcel>(questionWithAnswerBOList::addAll)).sheet().doRead();
         return questionWithAnswerBOList;
+    }
+
+    // todo
+    @Override
+    public File writeQAList2Excel() {
+        return null;
     }
 
 

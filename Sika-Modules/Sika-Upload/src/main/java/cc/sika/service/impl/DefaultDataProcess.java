@@ -9,15 +9,20 @@ import cc.sika.api.client.RemoteQAService;
 import cc.sika.api.client.RemoteQuestionService;
 import cc.sika.api.common.HttpStatus;
 import cc.sika.entity.QuestionAndAnswerExcel;
+import cc.sika.exception.NoQuestionException;
 import cc.sika.service.DataProcess;
 import cc.sika.service.ParsingExcel;
+import com.alibaba.excel.EasyExcel;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 吴畅
@@ -86,4 +91,36 @@ public class DefaultDataProcess implements DataProcess {
         return storeQueWithAnswer(questionAndAnswerExcels);
     }
 
+    @Override
+    public List<QuestionAndAnswerExcel> exportQANo2File() throws NoQuestionException {
+        BaseResponse<List<QuestionWithAnswerBO>> response = remoteQAService.getAll();
+        List<QuestionWithAnswerBO> boList = response.getData();
+        if (boList == null || boList.isEmpty()) {
+            throw new NoQuestionException();
+        }
+        return boList.stream().map(QuestionAndAnswerExcel::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<QuestionAndAnswerExcel> exportQA(String filename) throws NoQuestionException, IOException {
+        BaseResponse<List<QuestionWithAnswerBO>> response = remoteQAService.getAll();
+        File file = new File(filename);
+        FileUtils.forceMkdirParent(file);
+        if (!file.exists()) {
+            boolean isCreatedSuccess = file.createNewFile();
+        }
+        exportExcel(response.getData(), filename);
+        return null;
+    }
+
+    public void exportExcel(List<QuestionWithAnswerBO> qaList, String filename) throws NoQuestionException {
+        if (qaList == null || qaList.isEmpty()) {
+            throw new NoQuestionException();
+        }
+        List<QuestionAndAnswerExcel> excelList = qaList.stream()
+                .map(QuestionAndAnswerExcel::new)
+                .collect(Collectors.toList());
+        // 写入excel
+        EasyExcel.write(filename, QuestionAndAnswerExcel.class).sheet().doWrite(excelList);
+    }
 }

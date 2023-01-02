@@ -1,8 +1,10 @@
 package cc.sika.entity;
 
+import cc.sika.api.bean.bo.QuestionWithAnswerBO;
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -12,6 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
+@NoArgsConstructor
 public class QuestionAndAnswerExcel {
     @ExcelProperty("question_id")
     private Integer questionId;
@@ -31,4 +34,16 @@ public class QuestionAndAnswerExcel {
     private String answerContent;
     @ExcelProperty("answer_image")
     private byte[] answerImage;
+
+    public QuestionAndAnswerExcel(QuestionWithAnswerBO qa) {
+        questionId = qa.getQuestionId();
+        questionType = qa.getQuestionType();
+        questionContent = qa.getQuestionContent();
+        questionImage = qa.getQuestionImage();
+        questionDescription = qa.getQuestionDescription();
+        questionTopic = qa.getQuestionTopic();
+        answerId = qa.getAnswer().getAnswerId();
+        answerContent = qa.getAnswer().getAnswerContent();
+        answerImage = qa.getAnswer().getAnswerImage();
+    }
 }

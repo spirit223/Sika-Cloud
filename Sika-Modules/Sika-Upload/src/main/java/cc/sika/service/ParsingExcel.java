@@ -4,6 +4,7 @@ import cc.sika.api.bean.po.Question;
 import cc.sika.entity.QuestionAndAnswerExcel;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -28,5 +29,7 @@ public interface ParsingExcel {
      * @return 解析出来的题目和答案列表
      */
     List<QuestionAndAnswerExcel> parseToQuestionAndAnswerList(MultipartFile file) throws IOException;
+
+    File writeQAList2Excel();
 
 }
