@@ -110,6 +110,4 @@ public interface QuestionMapper {
      * @return 多个题目包含答案的列表
      */
     List<QuestionWithAnswerBO> getQuestionAndAnswerByFuzzy(@Param("fuzzy") String fuzzy);
-
-
 }

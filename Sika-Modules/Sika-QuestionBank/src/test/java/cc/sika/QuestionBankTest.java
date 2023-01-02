@@ -113,4 +113,21 @@ public class QuestionBankTest {
         int i = questionMapper.deleteQuestion(2);
         System.out.println("删除条数为: " + i);
     }
+
+    @Test
+    void testGetAllQA() {
+        List<QuestionWithAnswerBO> questionWithAnswerBOList = questionMapper.queryAllQuestionAndAnswer();
+        if (questionWithAnswerBOList == null || questionWithAnswerBOList.isEmpty()) {
+            System.out.println("空列表");
+            return;
+        }
+        questionWithAnswerBOList.forEach(System.out::println);
+    }
+
+    @Test
+    void testGetTopicQA() {
+        List<QuestionWithAnswerBO> questionWithAnswerBOList = questionMapper.queryQuesAndAnswerByTopic(new Topic("Java基础"));
+        questionWithAnswerBOList.forEach(System.out::println);
+    }
+
 }

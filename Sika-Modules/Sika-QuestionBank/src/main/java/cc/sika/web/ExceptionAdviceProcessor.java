@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -30,23 +28,7 @@ import java.io.IOException;
 @SuppressWarnings("rawtypes")
 public class ExceptionAdviceProcessor extends BaseController {
 
-    @Resource
-    private HttpServletRequest request;
 
-    /**
-     * 日志记录
-     */
-    private void processErrorLog(Exception exception) {
-        String requestMethod = request.getMethod();
-        if ("GET".equals(requestMethod)) {
-            log.error("错误产生URL:{}, 查询参数为: {}", request.getRequestURL(),
-                    request.getRequestURL().substring(request.getRequestURL().lastIndexOf("/") + 1));
-        } else {
-            log.error("错误产生URL:{}", request.getRequestURL());
-        }
-        log.error("异常信息: {}, 异常对象: {}", exception.getMessage(), exception);
-        log.error("远程异常ip: {},主机名 {}", request.getRemoteAddr(), request.getRemoteHost());
-    }
 
     /**
      * 方法参数解析异常处理, 只对 @Valid 注解验证生效, 详见 {@link javax.validation.Valid}

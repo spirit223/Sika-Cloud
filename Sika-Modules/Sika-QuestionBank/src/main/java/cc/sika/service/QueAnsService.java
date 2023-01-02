@@ -46,4 +46,6 @@ public interface QueAnsService {
      * @param qaList qa 携带答案PO对象的题目信息BO, 见{@link QuestionWithAnswerBO}
      */
     HttpStatus addQABatch(List<QuestionWithAnswerBO> qaList);
+
+    List<QuestionWithAnswerBO> getAll();
 }

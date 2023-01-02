@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +33,7 @@ public class QueAnsServiceImpl implements QueAnsService {
         Question question = new Question(qa.getQuestionId(), qa.getQuestionType(), qa.getQuestionContent(),
                 qa.getQuestionImage(), qa.getQuestionDescription(), qa.getAnswer().getAnswerId(), qa.getQuestionTopic());
         Answer answer = qa.getAnswer();
-        answer.setQuestionId(qa.getQuestionId());
+        answer.setQId(qa.getQuestionId());
         return addQA(question, answer);
     }
 
@@ -54,7 +55,7 @@ public class QueAnsServiceImpl implements QueAnsService {
             question.setAnswerId(answer.getAnswerId());
         }
         int ques = questionMapper.addQuestion(question);
-        answer.setQuestionId(question.getQuestionId());
+        answer.setQId(question.getQuestionId());
         int answ = answerMapper.addAnswer(answer);
         if (ques == 1 && answ == 1) {
             return HttpStatus.SUCCESS;
@@ -110,9 +111,19 @@ public class QueAnsServiceImpl implements QueAnsService {
         return addQABatch(qList, aList);
     }
 
+
+    @Override
+    public List<QuestionWithAnswerBO> getAll() {
+        List<QuestionWithAnswerBO> boList = questionMapper.queryAllQuestionAndAnswer();
+        if (boList == null || boList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return boList;
+    }
+
     private void logicBind(Question question, Answer answer) {
         question.setAnswerId(answer.getAnswerId());
-        answer.setQuestionId(question.getQuestionId());
+        answer.setQId(question.getQuestionId());
     }
 
 }

@@ -8,10 +8,7 @@ import cc.sika.api.common.HttpStatus;
 import cc.sika.api.web.BaseController;
 import cc.sika.service.QueAnsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,12 +34,21 @@ public class QAController extends BaseController {
         return responseFail(HttpStatus.ERROR);
     }
 
-    @PostMapping("/addBatch")
+    @PostMapping("/add-batch")
     public BaseResponse addBatch(@RequestBody List<QuestionWithAnswerBO> qaList) {
         HttpStatus httpStatus = qaService.addQABatch(qaList);
         if (httpStatus == HttpStatus.SUCCESS) {
             return responseSuccess();
         }
         return responseFail(HttpStatus.ERROR);
+    }
+
+    @GetMapping("/get-all")
+    public BaseResponse<List<QuestionWithAnswerBO>> getAll() {
+        List<QuestionWithAnswerBO> qaList = qaService.getAll();
+        if (qaList.isEmpty()) {
+            return responseSuccess(null, "当前没有题目数据");
+        }
+        return responseSuccess(qaList, "题库获取成功");
     }
 }

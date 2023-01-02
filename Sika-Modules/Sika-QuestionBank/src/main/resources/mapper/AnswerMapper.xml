@@ -5,17 +5,17 @@
 <mapper namespace="cc.sika.mapper.AnswerMapper">
 
     <select id="getAnswerById" resultType="cc.sika.api.bean.po.Answer" parameterType="_int">
-        SELECT answer_id, answer_content, answer_image, question_id
+        SELECT id, answer_content, answer_image, question_id
         FROM answer
-        WHERE answer_id = #{answerId}
+        WHERE id = #{answerId}
     </select>
     <select id="getAnswerContentById" resultType="java.lang.String">
         SELECT answer_content
         FROM answer
-        WHERE answer_id = #{answerId}
+        WHERE id = #{answerId}
     </select>
     <select id="getAnswerIdByQueId" resultType="java.lang.Integer">
-        SELECT answer_id
+        SELECT id
         FROM answer
         WHERE question_id = #{questionId}
     </select>
@@ -25,7 +25,7 @@
         WHERE question_id = #{questionId}
     </select>
     <select id="getAnswerByQueId" resultType="cc.sika.api.bean.po.Answer">
-        SELECT answer_id, answer_content, answer_image, question_id
+        SELECT id, answer_content, answer_image, question_id
         FROM answer
         WHERE question_id = #{questionId}
     </select>
@@ -36,11 +36,11 @@
     <delete id="deleteAnswerById" parameterType="_int">
         DELETE
         FROM answer
-        WHERE answer_id = #{answerId}
+        WHERE id = #{answerId}
     </delete>
     <delete id="deleteAnswerBatch">
         DELETE FROM answer
-        WHERE answer_id IN
+        WHERE id IN
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
@@ -70,12 +70,12 @@
             <if test="answerImage != null">answer_image = #{answerImage}</if>
             <if test="questionId != null">question_id = #{questionId}</if>
         </set>
-        WHERE answer_id = #{answerId}
+        WHERE id = #{answerId}
     </update>
     <update id="updateQueId">
         UPDATE answer
         SET question_id = #{questionId}
-        WHERE answer_id = #{answerId}
+        WHERE id = #{answerId}
     </update>
     <!-- todo -->
     <update id="updateAnswerBatch"></update>

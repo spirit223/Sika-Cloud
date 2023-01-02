@@ -32,24 +32,24 @@
             question_description = #{questionDescription},
             answer_id            = #{questionAnswer},
             question_topic       = #{questionTopic}
-        WHERE question_id = #{questionId}
+        WHERE id = #{questionId}
     </update>
     <update id="updateQueAnswer">
         UPDATE question
         SET answer_id = #{answerId}
-        WHERE question_id = #{questionId}
+        WHERE id = #{questionId}
     </update>
 
     <delete id="deleteQuestion" parameterType="_int">
         DELETE
         FROM question
-        WHERE question_id = #{questionId}
+        WHERE id = #{questionId}
     </delete>
 
 
     <!--********************** DQL **********************-->
     <select id="queryQuestionById" resultType="cc.sika.api.bean.po.Question">
-        SELECT question_id,
+        SELECT id,
                question_type,
                question_content,
                question_image,
@@ -57,11 +57,11 @@
                answer_id,
                question_topic
         FROM question
-        WHERE question_id = #{questionId}
+        WHERE id = #{questionId}
     </select>
 
     <select id="queryQuestionByTopic" resultType="cc.sika.api.bean.po.Question">
-        SELECT question_id,
+        SELECT id,
                question_type,
                question_content,
                question_image,
@@ -73,7 +73,7 @@
     </select>
 
     <select id="queryAllQuestion" resultType="cc.sika.api.bean.po.Question">
-        SELECT question_id,
+        SELECT id,
                question_type,
                question_content,
                question_image,
@@ -82,7 +82,7 @@
                question_topic
         FROM question
     </select>
-
+    <!--********************** MAP **********************-->
     <resultMap id="questionWithAnswerBOMap" type="cc.sika.api.bean.bo.QuestionWithAnswerBO">
         <result column="question_id" property="questionId"/>
         <result column="question_type" property="questionType"/>
@@ -90,47 +90,49 @@
         <result column="question_image" property="questionImage"/>
         <result column="question_description" property="questionDescription"/>
         <result column="question_topic" property="questionTopic"/>
-        <association property="answer" resultMap="answerMap"/>
+        <association property="answer" javaType="cc.sika.api.bean.po.Answer">
+            <id column="answer_id" property="answerId"/>
+            <result column="answer_content" property="answerContent"/>
+            <result column="answer_image" property="answerImage"/>
+        </association>
     </resultMap>
+
 
     <resultMap id="answerMap" type="cc.sika.api.bean.po.Answer">
         <id column="answer_id" property="answerId"/>
         <result column="answer_content" property="answerContent"/>
         <result column="answer_image" property="answerImage"/>
-        <result column="question_id" property="questionId"/>
+        <result column="question_id" property="qId"/>
     </resultMap>
-
-    <select id="queryQuesAndAnswer" resultMap="questionWithAnswerBOMap">
-        SELECT q.question_id,
+    <!--********************** QA **********************-->
+    <select id="queryQuesAndAnswer" resultMap="qaMap">
+        SELECT q.id,
                q.question_type,
                q.question_content,
                q.question_image,
                q.question_description,
                q.question_topic,
-               a.answer_id,
+               a.id,
                a.answer_content,
                a.answer_image,
                a.question_id
         FROM question q
-                 LEFT JOIN answer a ON q.answer_id = a.answer_id
-        WHERE q.question_id = #{questionId}
+                 LEFT JOIN answer a ON q.answer_id = a.id
+        WHERE q.id = #{questionId}
     </select>
 
-    <select id="queryQuesAndAnswerByTopic" resultMap="questionWithAnswerBOMap">
+    <select id="queryQuesAndAnswerByTopic" resultMap="qaMap">
         SELECT
-        q.question_id,
-        q.question_type,
-        q.question_content,
-        q.question_image,
-        q.question_description,
-        q.question_topic,
-        a.answer_id,
-        a.answer_content,
-        a.answer_image,
-        a.question_id
+        q.id AS q_id,
+        q.question_type AS q_type,
+        q.question_content AS q_c,
+        q.question_image AS q_i,
+        q.question_description AS q_d,
+        q.question_topic AS q_topic,
+        a.id AS a_id
         FROM
         question q
-        LEFT JOIN answer a ON q.answer_id = a.answer_id
+        LEFT JOIN answer a ON q.answer_id = a.id
         <choose>
             <when test="''.equals(topicName)">
                 WHERE
@@ -143,41 +145,63 @@
         </choose>
 
     </select>
-    <select id="queryAllQuestionAndAnswer" resultMap="questionWithAnswerBOMap">
-        SELECT q.question_id,
-               q.question_type,
-               q.question_content,
-               q.question_image,
-               q.question_description,
-               q.question_topic,
-               a.answer_id,
-               a.answer_content,
-               a.answer_image,
-               a.question_id
-        FROM question q
-                 LEFT JOIN answer a ON q.answer_id = a.answer_id
+
+    <resultMap id="qaMap" type="cc.sika.api.bean.bo.QuestionWithAnswerBO">
+        <id column="q_id" property="questionId"/>
+        <result column="q_type" property="questionType"/>
+        <result column="q_c" property="questionContent"/>
+        <result column="q_i" property="questionImage" jdbcType="BLOB"/>
+        <result column="q_d" property="questionDescription"/>
+        <result column="q_topic" property="questionTopic"/>
+        <association property="answer" column="a_id" javaType="cc.sika.api.bean.po.Answer" select="getAnswer"/>
+    </resultMap>
+
+    <select id="getAnswer" resultType="cc.sika.api.bean.po.Answer">
+        SELECT id, answer_content, answer_image, question_id
+        FROM answer
+        WHERE id = #{a_id}
     </select>
+
+    <resultMap id="aMap" type="cc.sika.api.bean.po.Answer">
+        <id property="answerId" column="a_id"/>
+        <result column="a_c" property="answerContent"/>
+        <result column="a_i" property="answerImage" jdbcType="BLOB"/>
+        <result column="a_q_id" property="qId"/>
+    </resultMap>
+
+    <select id="queryAllQuestionAndAnswer" resultMap="qaMap">
+        SELECT q.id                   AS q_id,
+               q.question_type        AS q_type,
+               q.question_content     AS q_c,
+               q.question_image       AS q_i,
+               q.question_description AS q_d,
+               q.question_topic       AS q_topic,
+               a.id                   AS a_id
+        FROM question q
+                 LEFT JOIN answer a ON q.answer_id = a.id
+    </select>
+
     <select id="getAllTopic" resultType="cc.sika.api.bean.dto.Topic">
         SELECT DISTINCT question_topic
         FROM question;
     </select>
-    <select id="getQuestionAndAnswerByFuzzy" resultMap="questionWithAnswerBOMap">
-        SELECT q.question_id,
+    <select id="getQuestionAndAnswerByFuzzy" resultMap="qaMap">
+        SELECT q.id,
                q.question_type,
                q.question_content,
                q.question_image,
                q.question_description,
                q.question_topic,
-               a.answer_id,
+               a.id,
                a.answer_content,
                a.answer_image,
                a.question_id
         FROM question q
-                 LEFT JOIN answer a ON q.answer_id = a.answer_id
+                 LEFT JOIN answer a ON q.answer_id = a.id
         WHERE q.question_content LIKE '%${fuzzy}%'
     </select>
     <select id="queryQuestionByContent" resultType="cc.sika.api.bean.po.Question">
-        SELECT question_id,
+        SELECT id,
                question_type,
                question_content,
                question_image,
