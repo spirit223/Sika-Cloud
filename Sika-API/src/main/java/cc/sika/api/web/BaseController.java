@@ -2,7 +2,17 @@ package cc.sika.api.web;
 
 import cc.sika.api.bean.dto.BaseResponse;
 import cc.sika.api.common.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  * <p>
@@ -15,7 +25,12 @@ import org.springframework.util.StringUtils;
  * @author 吴畅
  * @创建时间 2022/12/15 - 19:24
  */
+@Slf4j
 public abstract class BaseController {
+
+    @Resource
+    private HttpServletRequest request;
+
     /**
      * 封装成功返回的的方法, 泛型的确定见
      * {@link BaseResponse}
@@ -85,11 +100,49 @@ public abstract class BaseController {
         failResponse.setCode(status.getCode());
         if (StringUtils.hasText(message)) {
             failResponse.setMessage(message);
-        }
-        else {
+        } else {
             failResponse.setMessage(status.getMessage());
         }
         return failResponse;
+    }
+
+    /**
+     * 响应 Excel, 并且在 header 中携带文件名称
+     *
+     * @param file     excel 文件对象
+     * @param response 响应对象
+     * @param filename 去除文件路径的文件名
+     * @throws IOException
+     */
+    protected void responseFile(File file, HttpServletResponse response, String filename) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + filename);
+        ServletOutputStream outputStream = response.getOutputStream();
+        BufferedInputStream fileInputStream = new BufferedInputStream(Files.newInputStream(file.toPath()));
+        byte[] bytes = new byte[4096];
+        int read = 0;
+        while ((read = fileInputStream.read(bytes, 0, bytes.length)) != -1) {
+            outputStream.write(bytes);
+        }
+        outputStream.close();
+        fileInputStream.close();
+    }
+
+
+    /**
+     * 日志记录
+     */
+    protected void processErrorLog(Exception exception) {
+        String requestMethod = request.getMethod();
+        if ("GET".equals(requestMethod)) {
+            log.error("错误产生URL:{}, 查询参数为: {}", request.getRequestURL(),
+                    request.getRequestURL().substring(request.getRequestURL().lastIndexOf("/") + 1));
+        } else {
+            log.error("错误产生URL:{}", request.getRequestURL());
+        }
+        log.error("异常信息: {}, 异常对象: {}", exception.getMessage(), exception);
+        log.error("远程异常ip: {},主机名 {}", request.getRemoteAddr(), request.getRemoteHost());
     }
 
 }
