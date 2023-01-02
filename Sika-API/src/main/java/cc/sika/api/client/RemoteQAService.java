@@ -3,6 +3,7 @@ package cc.sika.api.client;
 import cc.sika.api.bean.bo.QuestionWithAnswerBO;
 import cc.sika.api.bean.dto.BaseResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,8 +17,11 @@ import java.util.List;
 public interface RemoteQAService {
 
     @PostMapping("/qa/add")
-    public BaseResponse addOne(@RequestBody QuestionWithAnswerBO qa);
+    BaseResponse addOne(@RequestBody QuestionWithAnswerBO qa);
 
-    @PostMapping("/qa/addBatch")
-    public BaseResponse addBatch(@RequestBody List<QuestionWithAnswerBO> qaList);
+    @PostMapping("/qa/add-batch")
+    BaseResponse addBatch(@RequestBody List<QuestionWithAnswerBO> qaList);
+
+    @GetMapping("/qa/get-all")
+    BaseResponse<List<QuestionWithAnswerBO>> getAll();
 }
