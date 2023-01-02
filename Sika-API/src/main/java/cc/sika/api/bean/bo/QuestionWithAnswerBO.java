@@ -27,12 +27,22 @@ public class QuestionWithAnswerBO {
     private String questionTopic;
     private Answer answer;
 
+    public QuestionWithAnswerBO(Integer questionId, String questionType, String questionContent, byte[] questionImage, String questionDescription, String questionTopic, Integer answerId, String answerContent, byte[] answerImage, int answerQuestionId) {
+        this.questionId = questionId;
+        this.questionType = questionType;
+        this.questionContent = questionContent;
+        this.questionImage = questionImage;
+        this.questionDescription = questionDescription;
+        this.questionTopic = questionTopic;
+        this.answer = new Answer(answerId, answerContent, answerImage, answerQuestionId);
+    }
+
     public Question getQuestion() {
         return new Question(questionId, questionType, questionContent, questionImage, questionDescription, answer.getAnswerId(), questionTopic);
     }
 
     public Answer getAnswer() {
-        this.answer.setQuestionId(this.questionId);
+        this.answer.setQId(this.questionId);
         return answer;
     }
 }
