@@ -16,9 +16,9 @@
 `Sika-Common-Swagger` 模块作为一个 `SpringBoot-Starter` 依赖存在, 并且是基于 `Springfox-boot-starter3.0.0` 开发,
 旨在完成对 `Swagger-UI` 的自适应自动化配置.
 
-模块提供了 `@EnableCustomSwagger2` 注解来对存在 `Sika-Common-Swagger` 的模块进行接口扫描并自动生成基于 Swagger-UI 的接口文档
+模块提供了 `@EnableCustomSwagger` 注解来对存在 `Sika-Common-Swagger` 的模块进行接口扫描并自动生成基于 Swagger-UI 的接口文档
 
-如果导入了该依赖并且开启 `@EnableCustomSwagger2`, 将会在 `项目url:端口/swagger-ui/index.html` 生成一个接口文档
+如果导入了该依赖并且开启 `@EnableCustomSwagger`, 将会在 `项目url:端口/swagger-ui/index.html` 生成一个接口文档
 
 模块内部默认对 SpringMVC 的所有请求进行扫描
 
