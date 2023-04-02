@@ -17,7 +17,7 @@ import java.util.List;
  * @创建时间 2022/12/31 - 17:12
  */
 @RestController
-@RequestMapping("/qa")
+@RequestMapping("/bank/qa")
 public class QAController extends BaseController {
 
     @Autowired

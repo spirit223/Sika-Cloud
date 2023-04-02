@@ -28,7 +28,7 @@ import java.util.List;
  * @创建时间 2022/12/7 - 16:31
  */
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/bank/question")
 @Slf4j
 public class QuestionController extends BaseController {
     @Resource

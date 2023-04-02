@@ -3,9 +3,11 @@ package cc.sika.controller;
 import cc.sika.api.bean.dto.BaseResponse;
 import cc.sika.api.common.HttpStatus;
 import cc.sika.api.web.BaseController;
+import cc.sika.entity.GenericFileVO;
 import cc.sika.entity.QuestionAndAnswerExcel;
 import cc.sika.exception.NoQuestionException;
 import cc.sika.service.DataProcess;
+import cc.sika.service.StorageService;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +31,8 @@ public class FileUploadController extends BaseController {
 
     @Resource
     private DataProcess dataProcessor;
+    @Resource
+    private StorageService storageService;
 
     @PostMapping("/upload/question")
     public BaseResponse uploadQuestion(@RequestParam("file") MultipartFile file) throws IOException {
@@ -57,9 +61,23 @@ public class FileUploadController extends BaseController {
     @GetMapping("/qa-excel")
     public void getExcel(HttpServletResponse response) throws NoQuestionException, IOException {
         String formatDate = new SimpleDateFormat("yyyy-MM-dd-ss-SS").format(new Date());
+        // todo 文件输出路径
         String filename = "D:/sika/file/qa" + formatDate + ".xlsx";
         String name = FilenameUtils.getName(filename);
         dataProcessor.exportQA(filename);
-        responseFile(new File(filename), response, name);
+        responseExcelFile(new File(filename), response, name);
+    }
+
+    /**
+     * 处理文件上传
+     */
+    @PostMapping("/general")
+    public void uploadFile(MultipartFile file) throws IOException {
+        storageService.store(file);
+    }
+
+    @GetMapping("/all-files")
+    public List<GenericFileVO> allFiles() throws IOException {
+        return storageService.loadAll();
     }
 }

@@ -1,2 +1,8 @@
 server:
   port: 9512
+sika:
+  storage:
+    location: "D:/home/"
+swagger:
+  enabled: true
+  base-package: cc.sika.controller

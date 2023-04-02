@@ -1,6 +1,7 @@
 package cc.sika.common.security;
 
 import cc.sika.common.security.annotation.EnableAuthentication;
+import cc.sika.common.swagger.annotation.EnableCustomSwagger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -11,6 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  */
 @SpringBootApplication
 @EnableAuthentication
+@EnableCustomSwagger
 public class SikaSecurityApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(SikaSecurityApplication.class);

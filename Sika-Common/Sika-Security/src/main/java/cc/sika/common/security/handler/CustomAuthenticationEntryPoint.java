@@ -32,7 +32,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         BaseResponse<Object> responseObj = new BaseResponse<>();
         responseObj.setSuccess(false);
         responseObj.setCode(HttpStatus.UNAUTHORIZED.getCode());
-        responseObj.setMessage("用户未登录" + authException.getMessage());
+        responseObj.setMessage("用户未登录或" + authException.getMessage() + ", 请求头token为: " + request.getHeader("token"));
         String json = JSONMapper.writeValueAsString(responseObj);
         response.getWriter().write(json);
     }

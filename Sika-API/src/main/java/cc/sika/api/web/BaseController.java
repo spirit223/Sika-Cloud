@@ -114,9 +114,17 @@ public abstract class BaseController {
      * @param filename 去除文件路径的文件名
      * @throws IOException
      */
-    protected void responseFile(File file, HttpServletResponse response, String filename) throws IOException {
+    protected void responseExcelFile(File file, HttpServletResponse response, String filename) throws IOException {
+        responseFile(file, response, filename, "application/vnd.ms-excel;charset=utf-8");
+    }
+
+    protected void responseFile(File file, HttpServletResponse response, String filename, String contentType) throws IOException {
         response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+        if ("".equals(contentType.trim())) {
+            response.setContentType("application/octet-stream;charset=utf-8");
+        } else {
+            response.setContentType(contentType);
+        }
         response.setHeader("Content-disposition", "attachment;filename=" + filename);
         ServletOutputStream outputStream = response.getOutputStream();
         BufferedInputStream fileInputStream = new BufferedInputStream(Files.newInputStream(file.toPath()));

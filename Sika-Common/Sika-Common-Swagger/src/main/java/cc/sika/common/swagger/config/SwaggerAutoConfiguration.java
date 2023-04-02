@@ -3,7 +3,6 @@ package cc.sika.common.swagger.config;
 import cc.sika.common.swagger.annotation.EnableCustomSwagger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -13,13 +12,14 @@ import org.springframework.util.StringUtils;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.ApiSelectorBuilder;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -30,7 +30,7 @@ import java.util.function.Predicate;
  * @创建时间 2022/12/14 - 13:47
  */
 @ConditionalOnProperty(name = "swagger.enable", matchIfMissing = true)
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 @EnableConfigurationProperties(SwaggerProperties.class)
 @Slf4j
 public class SwaggerAutoConfiguration implements ApplicationContextAware {
@@ -82,8 +82,34 @@ public class SwaggerAutoConfiguration implements ApplicationContextAware {
         excludePathList.forEach(excludePathPredicate -> apis.paths(excludePathPredicate.negate()));
         return apis
                 .build()
+                .securitySchemes(getSecuritySchemes())
+                .securityContexts(allSecurityContext())
                 .apiInfo(apiInfo(swaggerProperties));
     }
+
+    private List<SecurityScheme> getSecuritySchemes() {
+        ApiKey apiKey = new ApiKey("token", "authorization", "header");
+        return Collections.singletonList(apiKey);
+    }
+
+    /**
+     * 和 securitySchemes 绑定的安全上下文
+     */
+    private List<SecurityContext> allSecurityContext() {
+        return Collections.singletonList(SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                // todo forPath 使用 operationSelector 替换
+                .forPaths(PathSelectors.any())
+                .build());
+    }
+
+    private List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "全局需要授权");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[]{authorizationScope};
+        /* reference 和 ApiKey 的 name 参数对应 */
+        return Collections.singletonList(new SecurityReference("token", authorizationScopes));
+    }
+
 
     /**
      * 填充 ApiInfo

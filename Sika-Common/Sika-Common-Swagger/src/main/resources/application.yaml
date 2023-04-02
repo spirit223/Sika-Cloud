@@ -4,6 +4,8 @@ swagger:
   enabled: true
   title: "Sika接口文档"
   version: 1.0
+  contact:
+    name: "小吴来哩"
 spring:
   mvc:
     pathmatch:

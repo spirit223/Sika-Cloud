@@ -1,5 +1,6 @@
 package cc.sika.common.security.service;
 
+import cc.sika.api.bean.bo.UserInfo;
 import cc.sika.api.bean.dto.BaseResponse;
 import cc.sika.common.security.bean.po.User;
 
@@ -23,4 +24,6 @@ public interface LoginService {
      * @return 退出消息
      */
     BaseResponse<Object> logout();
+
+    UserInfo checkUserInfo(String token);
 }

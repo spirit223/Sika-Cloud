@@ -82,7 +82,7 @@ public class JWTUtils {
         return getJwtBuilder(subject, timeTTL, id).compact();
     }
 
-    public Claims parse(final String token) throws SignatureException {
+    public Claims parse(final String token) throws SignatureException, ExpiredJwtException {
         return Jwts.parser()
                 .setSigningKey(encipherSecret())
                 .parseClaimsJws(token)

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * @创建时间 2022/12/23 - 18:47
  */
 @RestController
-@RequestMapping("/answer")
+@RequestMapping("/bank/answer")
 public class AnswerController extends BaseController {
 
     @Resource(name = "defaultAnswerService")

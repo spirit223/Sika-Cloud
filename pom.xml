@@ -12,6 +12,7 @@
         <module>Sika-API</module>
         <module>Sika-Common</module>
         <module>Sika-Modules</module>
+        <module>Sika-Gateway</module>
     </modules>
 
     <properties>

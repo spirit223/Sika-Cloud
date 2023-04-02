@@ -1,5 +1,6 @@
 package cc.sika.common.security.service.impl;
 
+import cc.sika.api.bean.bo.UserInfo;
 import cc.sika.api.bean.dto.BaseResponse;
 import cc.sika.api.common.HttpStatus;
 import cc.sika.common.security.bean.bo.LoginUser;
@@ -8,12 +9,14 @@ import cc.sika.common.security.mapper.UserMapper;
 import cc.sika.common.security.service.LoginService;
 import cc.sika.common.security.utils.JWTUtils;
 import cc.sika.common.security.utils.RedisUtils;
+import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -51,8 +54,15 @@ public class DefaultLoginService implements LoginService {
         BaseResponse<Object> response = new BaseResponse<>();
         response.setSuccess(true);
         response.setCode(HttpStatus.SUCCESS.getCode());
+        String nickName = userMapper.getUserByName(user.getUsername()).getNickName();
+
         HashMap<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
+        if (StringUtils.hasText(nickName)) {
+            tokenMap.put("nickName", nickName);
+        } else {
+            tokenMap.put("nickName", user.getUsername());
+        }
         response.setData(tokenMap);
         response.setMessage("登录成功!");
         return response;
@@ -76,5 +86,13 @@ public class DefaultLoginService implements LoginService {
         response.setCode(HttpStatus.SUCCESS.getCode());
         response.setMessage("注销成功");
         return response;
+    }
+
+    @Override
+    public UserInfo checkUserInfo(String token) {
+        Claims claims = jwtUtils.parse(token);
+        String userId = claims.getSubject();
+        User user = userMapper.getUserById(Integer.parseInt(userId));
+        return new UserInfo(user.getUsername(), user.getNickName());
     }
 }

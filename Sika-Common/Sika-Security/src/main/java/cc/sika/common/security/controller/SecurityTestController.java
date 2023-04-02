@@ -1,4 +1,4 @@
-package cc.sika.common.security.web;
+package cc.sika.common.security.controller;
 
 import cc.sika.api.bean.dto.BaseResponse;
 import cc.sika.api.web.BaseController;

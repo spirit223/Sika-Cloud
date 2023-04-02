@@ -1,0 +1,60 @@
+server:
+  port: 11111
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: 43.139.39.172:8848
+    gateway:
+      # 全局跨域处理
+      globalcors:
+        # 解决OPTIONS 请求被拦截
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            # 允许哪些网站跨域请求
+            allowed-origins:
+              # 前端地址
+              - "http://127.0.0.1:5173/login"
+              # swagger
+              - "http://localhost:8111"
+              # security
+              - "http://localhost:65432"
+              # upload
+              - "http://localhost:9512"
+              # question-bank
+              - "http://localhost:8104"
+              # practice
+              - "http://localhost:10104"
+              # exam
+              - "http://localhost:11104"
+              - "http://www.ironcentury.cc"
+            # 允许的跨域 AJAX 的请求方式
+            allowed-methods:
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            # 允许在请求中携带的头信息
+            allowedHeaders: "*"
+            # 是否允许携带 cookie
+            allow-credentials: true
+            # 本次跨域检测的有效期
+            maxAge: 360000
+      routes:
+        - id: upload-service
+          uri: lb://upload-service
+          predicates:
+            - Path=/file/**
+        - id: download-service
+          uri: lb://upload-service
+          predicates:
+            - Path=/download
+        - id: question-bank
+          uri: lb://question-bank-service
+          predicates:
+            - Path=/bank/**
